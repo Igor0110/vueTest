@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" co01quick-startntent="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>01quick-start</title>
+</head>
+<body>
+
+    <div id="app">
+        <!-- 雙花括號是模板語言 -->
+        <h1>{{ typeof count}}</h1>
+        <hr>
+        <p>{{name}}想吃{{food}}</p>
+        <hr>
+        <div>{{talk ? 'true顯示' : 'false顯示'}}</div>
+
+        <div>{{array.length}}</div>
+        <p>{{obj}}</p>
+    </div>
+    <script src="https://unpkg.com/vue@next">
+    </script>
+    <script>
+        // 新增一個應用application->建立Vue實體(Instance)
+        // data bindings  ===>雙向渲染
+        // console.log(Vue)
+        Vue.createApp({
+            data(){
+                return {
+                    count:1,  //number
+                    name:'igor',   //string
+                    food:'珍珠奶茶',  
+                    talk:true, //布林 boolean
+                    array:[1,2,3],  //array
+                    Obj:{test :'123'}  //object
+                }
+            }
+        }).mount('#app')
+        // 並掛載(mount)在網站結點上(id = "app")
+
+    </script>
+</body>
+</html>
