@@ -16,6 +16,10 @@
             aspect-ratio: 1/1;
             width: 300px;
         }
+        h6{
+            font-size: 4vmin;
+        }
+
     </style>
 </head>
 <body>
@@ -30,9 +34,9 @@
                 <img :src="item.image" v-bind:alt="item.title">
                 <h6>{{item.price}}元,現正優惠</h6>
                 <div>               
-                    <button @click="reduceCount">-</button>
+                    <button @click="reduceCount(index)">-</button>
                     <input type="number" min="0" v-model="count[index]">
-                    <button @click="addCount">+</button>
+                    <button @click="addCount(index)">+</button>
                     <!-- <div v-for="變數 in 物件"></div> -->
                 </div>
             </div>
@@ -72,25 +76,40 @@
                         }
 
                     ],
-                    // title:'究極ㄟ無尾熊',
-                    price:100,  //number
-                    count:[0,0],
+
+                    count:[],
                     total:0
                 }
             },
+            mounted() {
+                //初始化商品數量
+                for ( item in this.product){
+                    this.count.push(0)
+                }
+            },
+
+            // 長型飛
             methods:{
-                addCount(){
-                    this.count +=1
-                    // this.toatl = this.count*this.price
-                    this.sumTotal()
+                addCount(index){
+                    this.count[index] +=1
+                    // this.sumTotal()
                 },
-                reduceCount(){
-                    if(this.count <= 0) return
-                    this.count -= 1
-                    this.sumTotal()
+                reduceCount(index){
+                    if(this.count[index] <= 0) return
+                    this.count[index] -= 1
+                    // this.sumTotal()
                 },
                 sumTotal(){
-                    this.total = this.count *this.price
+                        this.total = 0 
+                    // this.count.map(item,index =>{
+                        // item代表 :商品數量
+                        // index代表 :陣列位置
+                        // console.log(this.product[index][price] + ':' +item);
+                    // })
+                    for (countIndex in this.count ){
+                        this.total += this.count[countIndex] * this.product[countIndex]['price']
+                    }
+                    this.total = parseFloat(this.total)
                 }
             }
         }).mount('#app')
