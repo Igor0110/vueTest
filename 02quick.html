@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" co01quick-startntent="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>01quick-start</title>
+    <style>
+        .item{
+            border: saddlebrown 1px solid;
+            width: 50%;
+            text-align: center;
+            height: 300px;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="app" class="item">
+        <!-- 雙花括號是模板語言 -->
+        
+        <h2 data-attr="1">{{title}}</h2>
+        <h6>${{price}},現正優惠</h6>
+        <div>
+            <!-- @clicke 是簡寫  v-on-click -->
+            
+            <button @click="reduceCount">-</button>
+            <!-- 方法一<input type="number" v-model="count"> -->
+            <!-- 方法二 -->
+            <input type="number" v-model.number="count">
+            
+            <button @click="addCount">+</button>
+
+        </div>
+        <button>add</button>
+        <p>總計:{{total}}元</p>
+    </div>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script>
+        Vue.createApp({
+            // 大部分沒() ，data有()
+            data(){
+                return {
+                    title:'究極ㄟ無尾熊',
+                    price:100,  //number
+                    count:0,
+                    total:0
+
+                }
+            },
+            methods:{
+                addCount(){
+
+                    // console.log(this.count);
+                    this.count +=1
+                    this.toatl = this.count*this.price
+                    this.sumTotal()
+
+                },
+                reduceCount(){
+                    if(this.count <= 0) return
+                    // console.log(this.count);
+                    this.count -= 1
+                    this.sumTotal()
+
+                },
+                sumTotal(){
+                    this.total = this.count *this.price
+                }
+            }
+        }).mount('#app')
+
+    </script>
+</body>
+</html>

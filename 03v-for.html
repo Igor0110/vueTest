@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" co01quick-startntent="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>01quick-start</title>
+    <style>
+        .item-kola{
+            border: saddlebrown 1px solid;
+            /* width: 500px; */
+            text-align: center;
+
+        }
+        img{
+            aspect-ratio: 1/1;
+            width: 300px;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="app" class="item-kola" >
+        <div class="pagination">
+            <button v-for="page in 10" :key="page">{{page}}</button>
+        </div>
+        <div class="productContainer">
+            <div v-for="(item,index) in product" :key="item.id">
+                <h2>{{item.title}}</h2>
+                <img :src="item.image" v-bind:alt="item.title">
+                <h6>{{item.price}}元,現正優惠</h6>
+                <div>               
+                    <button @click="reduceCount">-</button>
+                    <input type="number" min="0" v-model="count[index]">
+                    <button @click="addCount">+</button>
+                    <!-- <div v-for="變數 in 物件"></div> -->
+                </div>
+            </div>
+            <p>總計:{{total}}元</p>
+        </div>
+
+    </div>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script>
+        Vue.createApp({
+            data(){
+                return {
+                    product:[
+                        {
+                            "id": 1,
+                            "title": "Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops",
+                            "price": 109.95,
+                            "description": "Your perfect pack for everyday use and walks in the forest. Stash your laptop (up to 15 inches) in the padded sleeve, your everyday",
+                            "category": "men's clothing",
+                            "image": "https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg",
+                            "rating": {
+                            "rate": 3.9,
+                            "count": 120
+                            }
+                        },
+                        {
+                            "id": 2,
+                            "title": "Mens Casual Premium Slim Fit T-Shirts ",
+                            "price": 22.3,
+                            "description": "Slim-fitting style, contrast raglan long sleeve, three-button henley placket, light weight & soft fabric for breathable and comfortable wearing. And Solid stitched shirts with round neck made for durability and a great fit for casual fashion wear and diehard baseball fans. The Henley style round neckline includes a three-button placket.",
+                            "category": "men's clothing",
+                            "image": "https://fakestoreapi.com/img/71-3HjGNDUL._AC_SY879._SX._UX._SY._UY_.jpg",
+                            "rating": {
+                            "rate": 4.1,
+                            "count": 259
+                            }
+                        }
+
+                    ],
+                    // title:'究極ㄟ無尾熊',
+                    price:100,  //number
+                    count:[0,0],
+                    total:0
+                }
+            },
+            methods:{
+                addCount(){
+                    this.count +=1
+                    // this.toatl = this.count*this.price
+                    this.sumTotal()
+                },
+                reduceCount(){
+                    if(this.count <= 0) return
+                    this.count -= 1
+                    this.sumTotal()
+                },
+                sumTotal(){
+                    this.total = this.count *this.price
+                }
+            }
+        }).mount('#app')
+
+    </script>
+</body>
+</html>
