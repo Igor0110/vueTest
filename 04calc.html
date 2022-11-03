@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" co01quick-startntent="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>01quick-start</title>
+    <style>
+        .item-kola{
+            border: saddlebrown 1px solid;
+            /* width: 500px; */
+            text-align: center;
+
+        }
+        img{
+            aspect-ratio: 1/1;
+            width: 300px;
+        }
+        h6{
+            font-size: 4vmin;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div id="app" class="item-kola" >
+        <button 
+        v-for="num in 9"
+        :key="num"
+        @click = "keyin = num"
+        >
+            {{num}}
+        </button>
+        <button>
+            0
+        </button>
+        {{keying}}
+        <br>
+        <button @click="reduce">-</button>
+        <button @click="add">+</button>
+        <button @click="calc">=</button>
+        <button @click="clear">C</button>
+
+        <div>
+            step: {{step}}
+        </div>
+        <h6>
+            result:{{result}}
+        </h6>
+
+    
+    </div>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script>
+        Vue.createApp({
+            data(){
+                return {
+                        step: '',
+                        result:0
+                        }
+            },
+            mounted() {
+                add(){
+                    this.result += this.keyin
+                },
+                reduce(){
+                    
+                }
+                keyin(){
+                    this.keyin= 
+                }
+                for ( item in this.product){
+                    this.count.push(0)
+                }
+            },
+
+            // 長型飛
+            methods:{
+                addCount(index){
+                    this.count[index] +=1
+                    // this.sumTotal()
+                },
+                reduceCount(index){
+                    if(this.count[index] <= 0) return
+                    this.count[index] -= 1
+                    // this.sumTotal()
+                },
+                sumTotal(){
+                        this.total = 0 
+                    // this.count.map(item,index =>{
+                        // item代表 :商品數量
+                        // index代表 :陣列位置
+                        // console.log(this.product[index][price] + ':' +item);
+                    // })
+                    for (countIndex in this.count ){
+                        this.total += this.count[countIndex] * this.product[countIndex]['price']
+                    }
+                    this.total = parseFloat(this.total)
+                }
+            }
+        }).mount('#app')
+
+    </script>
+</body>
+</html>

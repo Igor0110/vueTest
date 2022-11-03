@@ -43,14 +43,12 @@
                 return {
                     title:'究極ㄟ無尾熊',
                     price:100,  //number
-                    count:0,
+                    count:[0,0],
                     total:0
-
                 }
             },
             methods:{
                 addCount(){
-
                     // console.log(this.count);
                     this.count +=1
                     this.toatl = this.count*this.price
@@ -65,7 +63,12 @@
 
                 },
                 sumTotal(){
-                    this.total = this.count *this.price
+                    this.total = 0
+                    for ( countIndex in this.count) {
+                        this.total += this.count[countIndex] * this.product[countIndex]['price']
+                    }
+                    //正整數
+                    this.total = parseInt(this.total )
                 }
             }
         }).mount('#app')
