@@ -28,14 +28,15 @@
         <button 
         v-for="num in 9"
         :key="num"
-        @click = "keyin = num"
+        @click = "keyNumber = (num)"
         >
             {{num}}
         </button>
         <button>
             0
         </button>
-        {{keying}}
+        <div class="keyin">{{keying}}</div>
+        
         <br>
         <button @click="reduce">-</button>
         <button @click="add">+</button>
@@ -56,8 +57,7 @@
         Vue.createApp({
             data(){
                 return {
-                        step: '',
-                        result:0
+                        step: ''
                         }
             },
             mounted() {

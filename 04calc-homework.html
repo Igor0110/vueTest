@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>計算機1</title>
+</head>
+<body>
+    
+    <div id="app">
+        <div>
+            <ol>
+                <li>把按鈕先做出來</li>
+                <li>按鈕按的數字或.透過keyin組起來</li>
+                <li>新增 加減 等於</li>
+            </ol>
+            <div class="keyin">
+                {{keyin}}
+            </div>
+        </div>
+        <div class="calc-wrap">
+            <div class="numBtns">
+                <button v-for="num in 9" :key="num" @click="keyNumber(num)">{{num}}</button>
+                <button @click="clear">AC</button>
+                <button @click="keyNumber(0)">0</button>
+                <button @click="keyDote">.</button>
+            </div>
+            <div class="numBtns">
+                <button @click="add">+</button>
+                <button @click="reduce">-</button>
+                <button @click="calc" >=</button>
+            </div>
+        </div>
+
+    </div>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script>
+        Vue.createApp({
+            data(){
+                return {
+                    keyin: ''
+                }
+            },
+            methods: {
+                keyNumber(number){
+                    if (this.keyin == "0" && number == "0") return 
+                    //如果keyin初始值為0則輸入number0不繼續下去
+                    this.keyin += number.toString() // 為了二位數以上數值輸入
+                },
+                keyDote(){
+                    if (this.keyin.includes(".")) return //如果已經有小數點就不繼續
+                    this.keyin += '.'
+                },
+                clear(){
+                    this.keyin = ''
+                }
+            }
+        }).mount("#app")
+    </script>
+</body>
+</html>
+<style>
+#app{
+    display: inline-flex;
+}
+.numBtns{
+    display: inline-flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    width: 12rem;
+}
+.calc-wrap{
+    display: flex;
+    flex-direction: column;
+}
+button{
+    margin: .25rem;
+    border-radius: 50%;
+    font-size: 1.5rem;
+    cursor: pointer;
+    background-color: #eee;
+    box-shadow: -6px -6px 9px 0px white, 6px 6px 9px rgba(0, 0, 0, 0.4);
+}
+button:hover{
+    background-color: #999;
+}
+.numBtns button{
+    flex-basis: 3rem;
+    height: 3rem;
+}
+.keyin{
+    background-color: #ddd;
+}
+</style>
