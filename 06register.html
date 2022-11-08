@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" co01quick-startntent="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>01quick-start</title>
+</head>
+<body>
+
+    <div id="app">
+        <form action="" class="wrap">
+            <label for="">email
+                <input type="email">
+            </label>
+
+            <label for="">name
+                <input type="text">
+            </label>
+            <div>
+                <label for="">喜歡吃薯條
+                    <input type="checkbox">
+                </label>
+                <label for="">喜歡吃雞塊
+                    <input type="checkbox">
+                </label>
+            </div>
+            <div>
+                <label for="taipei">taipei
+                    <input type="text" type="radio" id="taipei" name="location" value="taipei" v-model="loaction" checked>
+                </label>
+                <label for="chiay">chiay
+                    <input type="text" type="radio" id="chiay" name="location" value="taipei"v-model="loaction" >
+                </label>
+
+
+            </div>
+            <label for="">
+                <select name="food" id="food" v-model="food">
+                    <option disabled value="">請選擇</option>
+                    <option value="bigPig">大豬小澎友</option>
+                    <option value="smallPig">小豬大澎友</option>
+                </select>
+            </label>
+
+        </form>
+    </div>
+    <script src="https://unpkg.com/vue@next">
+    </script>
+    <script>
+        // 新增一個應用application->建立Vue實體(Instance)
+        // data bindings  ===>雙向渲染
+        // console.log(Vue)
+        Vue.createApp({
+            data(){
+                return {
+                    count:1,  //number
+                    name:'igor',   //string
+                    food:'珍珠奶茶',  
+                    talk:true, //布林 boolean
+                    array:[1,2,3],  //array
+                    Obj:{test :'123'}  //object
+                }
+            }
+        }).mount('#app')
+        // 並掛載(mount)在網站結點上(id = "app")
+
+    </script>
+</body>
+</html>

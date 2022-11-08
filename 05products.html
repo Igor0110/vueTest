@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" co01quick-startntent="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>01quick-start</title>
+    <style>
+        .item-kola{
+            border: saddlebrown 1px solid;
+            /* width: 500px; */
+            text-align: center;
+
+        }
+        img{
+            aspect-ratio: 1/1;
+            width: 300px;
+        }
+        h6{
+            font-size: 4vmin;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div id="app" class="item-kola" >
+        <div class="pagination">
+            <button v-for="page in 10" :key="page">{{page}}</button>
+        </div>
+        <header>
+            search: <input type="text" v-model="search">
+            <!-- {{search}} -->
+            篩選出大於: <input type="number" v-model="min">
+            -
+            <input type="number" v-model="max">
+            $的商品
+        </header>
+        <p>總計:{{total}}元</p>
+        <div v-if="load">loading.....</div>
+        <div v-else class="productContainer">
+            <div v-for="(item,index) in product" :key="item.id">
+                <h2>{{item.title}}</h2>
+                <img :src="item.image" v-bind:alt="item.title">
+                <h6>{{item.price}}元,現正優惠</h6>
+                <div>               
+                    <button @click="reduceCount(index)">-</button>
+                    <input type="number" min="0" v-model="count[index]">
+                    <button @click="addCount(index,1)">+</button>
+                    <!-- <div v-for="變數 in 物件"></div> -->
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script>
+        Vue.createApp({
+            data(){
+                return {
+                    load: false,
+                    source:[],
+                    // product:[],
+                    count:[],
+                    // total:0,
+                    search:'',
+                    // filter:0,
+                    min:0,
+                    max:0
+                }
+            },
+            created() { //created: Vue實體被建立完
+                this.getResource()
+            },
+            // mounted() {},
+            computed:{
+                product(){                 
+                    let cache = this.source
+                    if(this.min > 0 ){   //篩選最小價格
+                        cache = cache.filter(item=>{
+                            return item.price > this.min
+                        })
+                    }
+                    if(this.max > 0 ){   //篩選最大價格
+                        cache = cache.filter(item=>{
+                            return item.price < this.max
+                        })
+                    }
+                    if(this.min !== '' ){   //篩選相符價格
+                        cache = cache.filter(item=>{
+                            return item.title.includes(this.search)
+                        })
+                    }
+                    return cache
+                },
+                total(){
+                    let total = 0
+                    for (const countIndex in this.product){
+                        total += this.count[countIndex]* this.product[countIndex]['price']
+                    }
+                }
+            },
+            // 長型飛
+            watch:{  //監聽data或computed
+                total: {
+                    handler: function(newVal,oldVal) {
+                        console.log(newVal);
+                        console.log(oldVal);
+                        if(newVal > 1000){
+                            alert('讚讚讚讚讚')
+                        }
+                    },
+			        deep: true
+    },
+            },
+            methods:{
+                parsePrice(){
+                    return `TWD ${price*33}`
+                }
+                getResource(){
+                    this.load = true
+                    fetch('https://fakestoreapi.com/products')
+                    .then(res=>res.json())
+                    .then(json=>{
+                        this.source = json
+                        for( item in this.product){
+                            this.count.push(0)
+                        }
+                        this.load =false
+                    })
+                },
+                addCount(index){
+                    this.count[index] +=1
+                    // this.sumTotal()
+                },
+                reduceCount(index){
+                    if(this.count[index] <= 0) return
+                    this.count[index] -= 1
+                    // this.sumTotal()
+                },
+                sumTotal(){
+                        this.total = 0 
+                    // this.count.map(item,index =>{
+                        // item代表 :商品數量
+                        // index代表 :陣列位置
+                        // console.log(this.product[index][price] + ':' +item);
+                    // })
+                    for (countIndex in this.count ){
+                        this.total += this.count[countIndex] * this.product[countIndex]['price']
+                    }
+                    this.total = parseFloat(this.total)
+                }
+            }
+        }).mount('#app')
+
+    </script>
+</body>
+</html>
