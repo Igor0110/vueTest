@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>計算機</title>
+</head>
+<body>
+    <section class="qqq">
+        <div>
+            <h1><a href="../index.html">回 index</a></h1>
+        </div>
+    </section>
+    <section>
+        <div id="app">
+            <div class="keyin">
+                    {{keyin || '0'}}
+            </div>
+            <div class="numBtns">
+                <button @click="clear">AC</button>
+                <button @click="negative">+/-</button>
+                <button @click="percent">%</button>
+                <button @click="divide">÷</button>
+                <button @click="keyNumber(9)">9</button>
+                <button @click="keyNumber(8)">8</button>
+                <button @click="keyNumber(7)">7</button>
+                <button @click="multiply">×</button>
+                <button @click="keyNumber(6)">6</button>
+                <button @click="keyNumber(5)">5</button>
+                <button @click="keyNumber(4)">4</button>
+                <button @click="minus">-</button>
+                <button @click="keyNumber(3)">3</button>
+                <button @click="keyNumber(2)">2</button>
+                <button @click="keyNumber(1)">1</button>
+                <button @click="plus">+</button>
+                <button style="flex-basis: 7rem;" @click="keyNumber(0)">0</button>
+                <button @click="keyDote">.</button>
+                <button @click="equal">=</button>
+            </div>
+        </div>
+    </section>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script>
+        Vue.createApp({
+            data(){
+                return {
+                    keyin: ''
+                }
+            },
+            methods: {
+                keyNumber(num){
+                    // this.keyin = `${this.keyin}${num}`;
+                    if(this.operatorClicked){
+                        this.keyin = "";
+                        this.operatorClicked = false;
+                    }
+                    this.keyin = `${this.keyin}${num}`;
+                },
+                // dot(){
+                //     if(this.keyin.indexOf('.') === -1){
+                //         this.append('.');
+                //     }
+                //     // this.keyin
+                // },
+                setPrevious(){
+                    this.previous = this.keyin;
+                    this.operatorClicked = true;
+                },
+                plus(){
+                    this.operator = (a, b) => a + b;
+                    this.setPrevious();
+                },
+                minus(){
+                    this.operator = (a, b) => b - a;
+                    this.setPrevious();
+                },
+                multiply(){
+                    this.operator = (a, b) => a * b;
+                    this.setPrevious();
+                },
+                divide(){
+                    this.operator = (a, b) => b / a;
+                    this.setPrevious();
+                },
+                equal(){
+                    this.keyin = `${this.operator(
+                    parseFloat(this.keyin), 
+                    parseFloat(this.previous)
+                    )}`;
+                    this.previous = null;
+                },
+                clear(){
+                    this.keyin ="";
+                },
+                negative(){
+                    this.keyin = this.keyin.charAt(0) === '-' ? 
+                    this.keyin.slice(1) : `-${this.keyin}`;
+                },
+                percent(){
+                    this.keyin = `${parseFloat(this.keyin)/100}`
+                },
+            }
+        }).mount("#app")
+    </script>
+</body>
+</html>
+<style>
+    body {
+        background-color: #26273b;
+    }
+
+    div {
+        color: #C4A87E;
+    }
+
+    div a {
+        color: #C4A87E;
+        text-decoration: none;
+    }
+
+    .qqq {
+        margin: 10px;
+    }
+
+    .numBtns {
+        display: inline-flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        width: 250px;
+        margin-top: 10px;
+    }
+
+    button {
+        margin: .25rem;
+        /* border-radius: 50%; */
+        font-size: 1.5rem;
+        cursor: pointer;
+        background-color: #26273b;
+        border: 2px solid #C4A87E;
+        color: #C4A87E;
+    }
+
+    button:hover {
+        background-color: #C4A87E;
+        color: #26273b;
+    }
+
+    .numBtns button {
+        flex-basis: 3rem;
+        height: 3rem;
+    }
+
+    .keyin {
+        width: 14.5rem;
+        margin-left: 0.35%;
+        line-height: 30px;
+        border: 2px solid #C4A87E;
+    }
+</style>

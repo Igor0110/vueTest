@@ -30,12 +30,16 @@
                 <button @click="add">+</button>
                 <button @click="reduce">-</button>
                 <button @click="calc" >=</button>
+                <button @click="multiply" >*</button>
+                <button @click="divide" >/</button>
+
             </div>
         </div>
 
     </div>
     <script src="https://unpkg.com/vue@next"></script>
     <script>
+
         Vue.createApp({
             data(){
                 return {
@@ -43,18 +47,60 @@
                 }
             },
             methods: {
-                keyNumber(number){
-                    if (this.keyin == "0" && number == "0") return 
-                    //如果keyin初始值為0則輸入number0不繼續下去
-                    this.keyin += number.toString() // 為了二位數以上數值輸入
+                keyNumber(num){
+                    // this.keyin = `${this.keyin}${num}`;
+                    if(this.operatorClicked){
+                        this.keyin = "";
+                        this.operatorClicked = false;
+                    }
+                    this.keyin = `${this.keyin}${num}`;
                 },
-                keyDote(){
-                    if (this.keyin.includes(".")) return //如果已經有小數點就不繼續
-                    this.keyin += '.'
+                dot(){
+                    if(this.keyin.indexOf('.') === -1){
+                        this.append('.');
+                    }
+                    // this.keyin
+                },
+                setPrevious(){
+                    this.previous = this.keyin;
+                    this.operatorClicked = true;
+                },
+                add(){
+                    this.operator = (a, b) => a + b;
+                    // this.operator= function(a,b){
+                    //     this.a + this.b
+                    // }
+                    this.setPrevious();
+                },
+                reduce(){
+                    this.operator = (a, b) => b - a;
+                    this.setPrevious();
+                },
+                multiply(){
+                    this.operator = (a, b) => a * b;
+                    this.setPrevious();
+                },
+                divide(){
+                    this.operator = (a, b) => b / a;
+                    this.setPrevious();
+                },
+                calc(){
+                    this.keyin = `${this.operator(
+                    parseFloat(this.keyin), 
+                    parseFloat(this.previous)
+                    )}`;
+                    this.previous = null;
                 },
                 clear(){
-                    this.keyin = ''
-                }
+                    this.keyin ="";
+                },
+                negative(){
+                    this.keyin = this.keyin.charAt(0) === '-' ? 
+                    this.keyin.slice(1) : `-${this.keyin}`;
+                },
+                percent(){
+                    this.keyin = `${parseFloat(this.keyin)/100}`
+                },
             }
         }).mount("#app")
     </script>
