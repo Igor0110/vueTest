@@ -23,15 +23,18 @@
     </style>
 </head>
 <body>
+    <!-- v-for="num in 9"
+    :key="num"
+    @click = "keyNumber = (num)" -->
 
     <div id="app" class="item-kola" >
-        <button 
-        v-for="num in 9"
-        :key="num"
-        @click = "keyNumber = (num)"
-        >
+        <ol>
+            <li>先把案件做出來</li>
+            <li>透過KEYIN組裝</li>
+        </ol>
+        <div class="keyin">
             {{num}}
-        </button>
+        </div>
         <button>
             0
         </button>
