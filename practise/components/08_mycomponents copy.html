@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>ckick 事件</title>
+    </head>
+    <body>
+        <template id="app">
+            <p class="greeting">{{ greeting }}</p>
+        </template>
+        <script src="https://unpkg.com/vue@next"></script>
+        <script>
+            const app = Vue.createApp({
+                export default {
+                    data() {
+                        return {
+                            greeting: "Hello World!",
+                        };
+                    },
+                },
+            });
+            app.component()
+        </script>
+    </body>
+</html>
+<style>
+    .greeting {
+        color: red;
+        font-weight: bold;
+    }
+</style>

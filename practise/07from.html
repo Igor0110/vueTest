@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>ckick 事件</title>
+    </head>
+    <body>
+        <template id="app" class="wrapper">
+            <div>
+                <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Dolorum nihil odio nostrum, maxime voluptatem ullam tempora
+                    sit minus molestiae blanditiis animi? Culpa adipisci vel
+                    volupta tes modi laudantium ex quas quis.
+                </p>
+                <input type="text" v-model.lazy="username" />
+
+                <input type="text" v-model="username" />
+                <p>{{ username }}</p>
+                <button @click="clickUserName">用戶名</button>
+            </div>
+        </template>
+        <script src="https://unpkg.com/vue@next"></script>
+        <script>
+            Vue.createApp({
+                name: "HolloWorld",
+                data() {
+                    return {
+                        username: "",
+                    };
+                },
+                methods: {
+                    clickUserName() {
+                        console.log(username.value);
+                    },
+                },
+            }).mount("#app");
+        </script>
+    </body>
+</html>
+<style></style>

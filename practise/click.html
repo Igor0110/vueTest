@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>練習VUE 渲染</title>
+</head>
+<body>
+    <template id="app"  class="wrapper">
+
+        <!-- <button @click="counter +=1" >點擊: counter= {{ counter }}</button>
+        <button @click="clickButton">點擊按鈕</button> -->
+        <p>{{message}}</p>
+
+    </template>
+    <script src="https://unpkg.com/vue@next">
+    </script>
+    <script>
+
+        // 新增一個應用application->建立Vue實體(Instance)
+        // data bindings  ===>雙向渲染
+        // console.log(Vue)
+        Vue.createApp({
+            data(){
+                return {
+                    counter:1  //number
+                    
+                }
+            }
+            // methods: {
+            //     clickButton(){
+                
+            //     }
+            // },
+        }).mount('#app')
+        // 並掛載(mount)在網站結點上(id = "app")
+
+
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ckick 事件</title>
+</head>
+<body>
+    <div id="app" class="wrapper">
+        <div>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum nihil odio nostrum, maxime voluptatem ullam tempora sit minus molestiae blanditiis animi? Culpa adipisci vel volupta     tes modi laudantium ex quas quis.</p>
+            <button @click="counter +=1">點擊 @click事件:{{ counter }}</button>
+            <button @click="clickHandle">按鈕</button>
+            <p>{{message}}</p>
+            <p>{{item}}</p>
+            <button @click="say('hi')">say hi</button>
+            <button @click="say('HIHIHIHI')">say HIHIHIHI</button>
+            <ul>
+                <li  @click="clickShowItem(item)" v-for="(item,index) in names " :key="index" >{{ item }}</li>
+            </ul>
+        </div>
+    </div>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script>
+        Vue.createApp({
+            name:'HolloWorld',
+            data(){
+                return {
+                    counter:1,
+                    message:'顯示消息通知',
+                    names:["Elaine","Eyo","Becky"]
+                }
+            },
+            methods:{
+                clickHandle(event){
+                    // console.log('哈哈哈哈clickHandle')
+                    this.message = "消息被收回了"
+                    //this 用click去改變內容
+                    //even 是原生js 的DOM EVENT
+                    console.log(event);
+                    event.target.innerHTML ="點擊之後顯示";
+                },
+                say(data){
+                    console.log(data);
+                },
+                clickShowItem(item){
+                    console.log(item);
+                }
+            }
+        }).mount("#app")
+    </script>
+</body>
+</html>
+<style>
+
+</style>

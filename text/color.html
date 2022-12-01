@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <div id="box">
+            <img src="https://fakeimg.pl/300x200/200" />
+        </div>
+        <button id="btn1">salmon</button>
+        <button id="btn2">blue</button>
+        <button id="btn3">red</button>
+    </body>
+</html>
+<script>
+    const btn1 = document.getElementById("btn1");
+    const btn2 = document.getElementById("btn2");
+    const btn3 = document.getElementById("btn3");
+
+    btn1.addEventListener("click", function onClick(event) {
+        document.body.style.backgroundColor = "salmon";
+    });
+
+    btn2.addEventListener("click", function onClick(event) {
+        document.body.style.backgroundColor = "blue";
+    });
+    btn3.addEventListener("click", function onClick(event) {
+        document.body.style.backgroundColor = "red";
+    });
+</script>

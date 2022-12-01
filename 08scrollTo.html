@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" co01quick-startntent="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>01quick-start</title>
+</head>
+<body>
+
+    <div id="app">
+        <section id="section1">1
+            <button @click="scrollDown">往下一頁</button>
+        </section>
+        <section id="section2">2
+
+        </section>
+        <section id="section3">3
+            <button @click="scrollTo">往上一頁</button>
+        </section>
+
+    </div>
+    <script src="https://unpkg.com/vue@next">
+    </script>
+    <script>
+        // 新增一個應用application->建立Vue實體(Instance)
+        // data bindings  ===>雙向渲染
+        // console.log(Vue)
+        Vue.createApp({
+            data(){
+                return {
+
+                }
+            },
+            methods: {
+                scrollDown(){
+
+                },
+                scrollTo(){
+
+                }
+            },
+        }).mount('#app')
+        // 並掛載(mount)在網站結點上(id = "app")
+
+    </script>
+    <style>
+        section{
+            height: 100vh;
+            font-size: 50vmin;
+            text-align: center;
+            /* position: relative; */
+        }
+        #section1{
+            background-color: #faa;
+        }
+        #section2{
+            background-color: #aaf;
+        }
+        #section3{
+            background-color: #afa;
+        }
+        button{
+            padding: 20px;
+            /* position: absolute;
+            width: 5vmin; */
+            font-size: 2vmin;
+            border-color: aqua;
+            outline: none;
+            border: none;
+            
+        }
+    </style>
+</body>
+</html>

@@ -4,51 +4,48 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>07lifecircle生命週期</title>
-    <script src="https://kit.fontawesome.com/aef7372e6a.js" crossorigin="anonymous"></script>
-    <style>
-        .fa-sharp{
-            color: rgb(239, 239, 108);
-
-        }
-        .fa-sharp.black{
-
-            color:#AAA;
-        }
-    </style>
+    <title>1</title>
 </head>
 <body>
     <div id="app">
 		<header>
 			search: <input type="text" v-model="search"><br>
+			<!-- {{search}} -->
 			$<input type="number" v-model="min">-<input type="number" v-model="max">
 		</header>
-		<p>總計：{{total}}元</p> 
-        <template v-if="load">loading...</template>
-        <template v-else >
-            <div class="productContainer">
-                <template v-if="item.rating">
-                    <span v-for="count in parseInt(item['rating']['rate'])"><i class="fa-sharp fa-solid fa-star"></i></span>
-                    <span v-for="count in parseInt(6-item['rating']['rate'])"><i class="fa-sharp fa-solid fa-star black"></i></span>
-                    <p>評論數：{{item.rating.count}}</p>
-                </template>
-                <div v-for="(item, index) in product" :key="item.id">
-                    <p>{{item.title}}</p>
-                    <img :src="item.image" v-bind:alt="item.title">
-                    <p>{{parsePrice(item.price)}}元</p>
-                    <div>
-                        <button v-on:click="reduceCount(index)">-</button>
-                        <input type="number" min="0" v-model="count[index]">
-                        <button @click="addCount(index, 1)">+</button>
+        <div>
+            <main>               
+                <div v-if="load">loading...</div>
+                <div v-else class="productContainer">
+                    <div v-for="(item, index) in product" :key="item.id">
+                        <!-- <p>{{item.title}}</p> -->
+                        <!-- <p>{{item.rating.rate}}</p> -->
+                        <!-- 或這樣寫 <p>{{item['rating']['rate']}}</p> -->
+                        <!-- <span v-for="count in parseInt(item['rating']['rate'])">{{count}}</span> -->
+                        <span v-for="count in parseInt(item['rating']['rate'])">⭐</span>
+                        <p>評論數:{{item.rating.count}}</p>
+                        <!-- 或這樣寫 <p>{{item['rating']['count']}}</p> -->
+                        <img :src="item.image" v-bind:alt="item.title">
+                        <p>{{parsePrice(item.price)}}元</p>
+                        <div>
+                            <button v-on:click="reduceCount(index,item)">-</button>
+                            <input type="number" min="0" v-model="count[index]">
+                            <button @click="addCount(index, item)">+</button>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </template>
-        <aside>
-            訂單
-            {{order}}
-            <p>總價: {{total}}元</p>
-        </aside>
+            </main>
+            <aside>
+                <p>總計：{{total}}元</p>
+                訂單
+                <ul>
+                    <li v-for="item in order" :key="item.id">
+                        {{item.title}}:{{item.count}}
+                    </li>
+                </ul>
+                {{order}}
+            </aside>
+        </div>	
     </div>
     <script src="https://unpkg.com/vue@next"></script>
     <script>
@@ -57,15 +54,13 @@
                 return {
                     load: false,
 					source: [],
-                    sourceCount: 0,
                     // product: [],
                     count: [],
                     // total: 0,
 					search: '',
 					min: 0,
 					max: 0,
-                    order:0,
-                    total:0,
+                    
                 }
             },
 			computed:{
@@ -121,30 +116,44 @@
                             this.count.push(0)
                         }
                         this.load = false
-                        this.sourceCount = this.source.length
-                        console.log('method:'+this.sourceCount);
                     })
                 },
-                addCount(index){
+                addCount(index,item){
                     this.count[index] += 1
+                    this.order.push({
+                        id: item.id,
+                        title: item.title,
+                        price: item.price,
+                        count:1,
+                    })
                     // this.sumTotal()
                 },
-                reduceCount(index){
+                reduceCount(index,item){
+                    console.log(item);
                     if(this.count[index] <= 0) return
-                    this.count[index] -= 1
+                    this.count[index] -=1
+                    // this.order.splice(index,1);s
                     // this.sumTotal()
                 },
+                // sumTotal(){
+                //     this.total = 0
+                //     for ( const countIndex in this.product) {
+                //         this.total += this.count[countIndex] * this.product[countIndex]['price']
+                //     }
+                //     //正整數
+                //     this.total = parseInt(this.total )
+                // }
             },
-			created() {
-                console.log('created:'+this.source.length);
-                // this.getResource()
+			created() { //created: Vue實體被建立完
+                console.log('created:' + this.source.length)
+                this.getResource()
             },
             mounted(){
                 this.getResource()
                 this.sourceCount = this.source.length
-                console.log('mounted:'+this.sourceCount);
+                console.log('mounted' + this.source.length);
             },
-            beforeUnmount(){
+	        beforeUnmount(){
                 alert('beforeUnmount')
                 console.log('beforeUnmount');
             }
@@ -159,5 +168,4 @@
     img{
         height: 5rem;
     }
-    
 </style>
