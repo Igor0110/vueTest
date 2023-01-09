@@ -6,28 +6,37 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Document</title>
     </head>
-    <body>
+    <body id="app">
         <div id="box">
-            <img src="https://fakeimg.pl/300x200/200" />
+            <img class="image" src="https://fakeimg.pl/300x200/200" />
         </div>
-        <button id="btn1">salmon</button>
-        <button id="btn2">blue</button>
-        <button id="btn3">red</button>
+        <div>
+            <button
+                v-for="(item, index) in buttoncolor"
+                :key="index"
+                @click="changebc(index)"
+            >
+                {{ item }}
+            </button>
+        </div>
     </body>
 </html>
+<script src="https://unpkg.com/vue@next"></script>
 <script>
-    const btn1 = document.getElementById("btn1");
-    const btn2 = document.getElementById("btn2");
-    const btn3 = document.getElementById("btn3");
+    Vue.createApp({
+        data() {
+            return {
+                buttoncolor: ["#aaa", "#afa", "#faf", "#ffa"],
+            };
+        },
+    }).mount("#app");
 
-    btn1.addEventListener("click", function onClick(event) {
-        document.body.style.backgroundColor = "salmon";
-    });
-
-    btn2.addEventListener("click", function onClick(event) {
-        document.body.style.backgroundColor = "blue";
-    });
-    btn3.addEventListener("click", function onClick(event) {
-        document.body.style.backgroundColor = "red";
+    button.addEventListener("click", function onClick(event) {
+        document.body.style.backgroundColor = changebc.inedx;
     });
 </script>
+<style lang="sass">
+    /* .images {
+        opacity: 0.5;
+    } */
+</style>
